@@ -2,19 +2,22 @@
   "name": "s69_random_outfit_generator",
   "version": "1.0.0",
   "description": "**Random Outfit Recommender**",
-  "main": "server.js",  // or "index.js" depending on your choice
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "serve": "nodemon server.js"
   },
-  "author": "mahanandhan",
-  "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^8.9.4"
+    "mongoose": "^8.9.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "type": "commonjs",
+  "author": "mahanandhan",
+  "license": "ISC",
+  "keywords": []
 }
