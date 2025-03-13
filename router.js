@@ -1,5 +1,5 @@
 const express = require('express');
-const Outfit = require('./model/schema');
+const Outfit = require('./model/schema');  // Your Outfit model for the database
 const router = express.Router();
 
 // Random Outfit Route with mood filter
@@ -26,29 +26,17 @@ router.post('/random-outfit', async (req, res) => {
   const missingCategories = [];
 
   try {
+    // Always return outfit categories without checking for existence in the database
     for (const category of selectedCategories) {
-      console.log(`Searching for category: ${category}, mood: ${mood}`);
+      console.log(`Returning outfit category: ${category}, mood: ${mood}`);
 
-      const outfitItem = await Outfit.findOne({
-        category: category.toLowerCase(),
-        mood: mood.toLowerCase(),
-      });
+      const outfitItem = { category: category.toLowerCase(), mood: mood.toLowerCase() };
 
-      if (!outfitItem) {
-        missingCategories.push(category);
-        continue;
-      }
-
+      // Instead of querying the database, just assign the category directly
       outfit[category] = outfitItem;
     }
 
-    if (missingCategories.length > 0) {
-      return res.status(404).json({
-        error: `No items found for categories: ${missingCategories.join(', ')}`,
-      });
-    }
-
-    res.json(outfit);
+    res.json(outfit);  // Send the constructed outfit object as the response
   } catch (err) {
     console.error('Error generating outfit:', err);
     res.status(500).json({ error: 'Error generating outfit' });
